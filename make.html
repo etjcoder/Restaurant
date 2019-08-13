@@ -106,7 +106,7 @@
 
             setTimeout(function () {
                 $.ajax({
-                    url: "http://localhost:3000/api/reservations",
+                    url: "https://morning-beach-26734.herokuapp.com/reservations/api",
                     method: "GET"
                 }).then(function (response) {
                     for (i = 0; i < response.length; i++) {
@@ -120,7 +120,7 @@
                 })
                 setTimeout(function () {
                     $.ajax({
-                        url: "http://localhost:3000/api/waitlist",
+                        url: "https://morning-beach-26734.herokuapp.com/waitlist/api",
                         method: "GET"
                     }).then(function (response) {
                         for (i = 0; i < response.length; i++) {
