@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hot Restaurant</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Caveat+Brush|Rammetto+One|Viga|Caveat&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <!-- jQuery -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</head>
+
+<body>
+    <h1>Hot Restaurant</h1>
+    <h2>The hottest restaurant in town! Get your res now</h2>
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h4 class="card-title">Go Home</h4>
+                    <div class="card-body">
+                        <button id="home-button" class="btn btn-light calorie-button" value="1750"><span>Back to
+                                Main</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <h4 class="card-title">View Tables</h4>
+                    <div class="card-body">
+
+                        <button id="table-button" class="btn btn-light calorie-button" value="2750"><span>View
+                                Tables</span></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="cust-name">Your Name</label>
+                        <input class="form-control" id="cust-name" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-phone">Your Phone #</label>
+                        <input class="form-control" id="cust-phone" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-email">Your Email</label>
+                        <input class="form-control" id="cust-email" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-id">Your Unique ID</label>
+                        <input class="form-control" id="cust-id" type="text">
+                    </div>
+                    <button class="btn btn-info" id="submit-res" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        $("#home-button").on("click", function () {
+            document.location.href = "/"
+        })
+
+        $("#table-button").on("click", function () {
+            document.location.href = "/table"
+        })
+
+
+        $("#submit-res").on("click", function () {
+            event.preventDefault();
+            var custName = $("#cust-name").val().trim();
+            var custPhone = $("#cust-phone").val().trim();
+            var custEmail = $("#cust-email").val().trim();
+            var custId = $("#cust-id").val().trim();
+
+
+            var newReservation = {
+                name: custName,
+                phone: custPhone,
+                email: custEmail,
+                id: custId
+            }
+
+            setTimeout(function () {
+                $.ajax({
+                    url: "http://localhost:3000/api/reservations",
+                    method: "GET"
+                }).then(function (response) {
+                    for (i = 0; i < response.length; i++) {
+
+                        if (response[i].id === newReservation.id) {
+                            console.log("This customer has already signed up for a reservation!");
+                            return;
+                        }
+
+                    }
+                })
+                setTimeout(function () {
+                    $.ajax({
+                        url: "http://localhost:3000/api/waitlist",
+                        method: "GET"
+                    }).then(function (response) {
+                        for (i = 0; i < response.length; i++) {
+
+                            if (response[i].id === newReservation.id) {
+                                console.log("This customer has already signed up for a reservation!");
+                                return;
+                            }
+
+                        }
+                        $.post("/api/table", newReservation).then(function (data) {
+                            console.log("make.html", data);
+                            alert("Adding character");
+                        })
+                    })
+                }, 2000)
+                console.log(newReservation);
+            }, 3000)
+
+        })
+    </script>
+</body>
+
+</html>

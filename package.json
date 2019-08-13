@@ -1,0 +1,18 @@
+{
+  "name": "Hotrestaurant",
+  "version": "1.0.0",
+  "description": "Today you will be building a Node / Express based web applications for handling reservation requests.\r Your application will be made up of two parts: \r 1) A front-end set of HTML/CSS/JS pages for entering and viewing data and \r 2) A back-end composed of Node/Express and basic JS for storing, updating, and relaying reservation data.\r Spend the time necessary to map this application out. Consider the concepts we've covered in class so far:\r * Servers\r * Routing\r * APIs\r * AJAX (GET and POST Requests)\r You should be referencing the code from the previous Star Wars application.\r Feel encouraged to use the following application as a reference: <http://hot-restaurant-fsf.herokuapp.com/>\r Note: We know this is a hard activity. We know you aren't yet comfortable with Node or Express. But push yourself. The best way to learn is to push through the discomfort and BUILD! Ask for help when you need it. We're here to help you through the process.\r ---------------------",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "jsdom": "^15.1.1",
+    "path": "^0.12.7"
+  }
+}

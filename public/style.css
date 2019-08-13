@@ -1,0 +1,123 @@
+body {
+    background-image: url(http://www.baltana.com/files/wallpapers-11/Fire-Background-Wallpaper-30358.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+h1 {
+    font-family: 'Viga', sans-serif;
+    font-size: 80px;
+    text-align: center;
+    margin-top: 15px;
+    color: white;
+}
+h2 {
+    font-size: 45px;
+    text-align: center;
+    color: white;
+    font-family: 'Caveat', cursive;
+}
+p {
+    color: white;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 15px;
+}
+#rate { 
+    color: white;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 12px;
+    text-align: center; 
+    color: #47E967;
+    margin-top: 5px;
+}
+.card {
+    text-align:center;
+    border-color: black;
+    background-color: white;
+    /* opacity: 0.8; */
+    height: 180px;
+}
+#res0, #res1, #res2, #res3, #res4 {
+    color: darkslategray;
+    height: 95px;
+    text-align: left;
+    float: left;
+}
+.wait-cards {
+    color: darkslategray;
+    height: 95px;
+    text-align: left;
+}
+
+#table-container{
+    height: 1500px;
+}
+#reservation-list{
+    height: 600px;
+}
+#waiting-list{
+    height: 850px;
+}
+.rem-card{
+    padding: 10px;
+    width: 20px;
+    float: right;
+    height: 95px;
+    text-align: center;
+}
+
+
+.card-title {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 22px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+}
+.btn {
+    margin-bottom: 5px;
+    font-size: 15px;
+    border-color: black;
+    border-width: 2px;
+}
+.btn:hover {
+    background-color: black;
+    color: white;
+    border: none;
+}
+#dietaryinfo {
+    color: white;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 15px;
+}
+#recipe-container1 {
+    height: 100%;
+    font-family: 'Viga', sans-serif;
+    border: 1px solid black;
+}
+#recipe-container2 {
+    height: 100%;
+    font-family: 'Viga', sans-serif;
+    border: 1px solid black;
+}
+#recipe-container3 {
+    height: 100%;
+    font-family: 'Viga', sans-serif;
+    border: 1px solid black;
+}
+img {
+    height: 200px;
+    width: 250px;
+    align-self: center;
+}
+#rateYo {
+    margin: 0 auto; 
+}
+
+#drink-image {
+    height: 150px;
+    width: 150px;
+}
+label{
+    font-size: 18px;
+    color: white;
+}

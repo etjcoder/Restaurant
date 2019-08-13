@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hot Restaurant</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Caveat+Brush|Rammetto+One|Viga|Caveat&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <!-- jQuery -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</head>
+
+<body>
+
+    <h1>Hot Restaurant</h1>
+    <h2>The hottest restaurant in town! Get your res now</h2>
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h4 class="card-title">Make a Reservation</h4>
+                    <div class="card-body">
+                        <button id="res-button" class="btn btn-light calorie-button" value="1750"><span>Reserve your
+                                seat</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <h4 class="card-title">Go Home</h4>
+                    <div class="card-body">
+
+                        <button id="home-button" class="btn btn-light calorie-button" value="2750"><span>View
+                                Back to Main</span></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="card col-12" id="table-container">
+                <h4 class="card-title">View Tables</h3>
+                    <div class="row">
+                        <div class="card card-body col-12" id="reservation-list">
+
+                            <h4 class="card-title">Reservations</h4>
+                            <div class="row" id="res-row">
+
+                            </div>
+                        </div>
+                        <div class="card card-body col-12" id="waiting-list">
+                            <h4 class="card-title">Waiting List</h4>
+                            <div class="row" id="wait-row">
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+
+        $("#res-button").on("click", function () {
+            document.location.href = "/make"
+        })
+
+        $("#home-button").on("click", function () {
+            document.location.href = "/"
+        })
+
+
+        $.get("/api/table", ((req, res) => {
+            console.log(res);
+            console.log(res);
+            // return res.json(ReservationsArray);
+        }))
+
+        $.ajax({
+            url: "http://localhost:3000/api/reservations",
+            method: "GET"
+        }).then(function (response) {
+            console.log(response.length);
+
+
+            if (response.length === 0) {
+                var noRes = $("<div>");
+                $(noRes).addClass("col-12");
+                $(noRes).text("No one has reserved a seat yet!");
+                $("#res-row").append(noRes);
+            }
+            for (i = 0; i < response.length; i++) {
+
+                var resDiv = $("<div>");
+                $(resDiv).addClass("card col-10");
+                $(resDiv).attr('id', `res` + i);
+                var rmvDiv = $("<div>");
+                $(rmvDiv).addClass("card col-2 rem-card");
+
+
+                var name = response[i].name;
+                var phone = response[i].phone;
+                var email = response[i].email;
+                var id = response[i].id;
+
+                var rmvBtn = $("<button>");
+                $(rmvBtn).text("X")
+                $(rmvBtn).addClass("btn");
+                $(rmvBtn).addClass("remove-button")
+                $(rmvBtn).addClass("btn-danger");
+                $(rmvBtn).addClass("sm-btn")
+                $(rmvBtn).val(id);
+                $(rmvBtn).attr('id', 'rmv' + i);
+
+                $(resDiv).append("Name: " + name);
+                $(resDiv).append("<br>" + "Phone: " + phone);
+                $(resDiv).append("<br>" + "Email: " + email);
+                $(resDiv).append("<br>" + "ID: " + id);
+
+                $(rmvDiv).append(rmvBtn);
+
+
+                $("#res-row").append(resDiv);
+                $("#res-row").append(rmvDiv);
+
+                console.log(`${name} has signed up for a RESERVATION. Their phone is ${phone}, ${email} and secret code is ${id}`);
+            }
+        })
+
+        var revisedWaitList = [];
+        var revisedReservationList = [];
+        setTimeout(function () {
+            $(".remove-button").on("click", function () {
+                console.log(this.value);
+                removeID = this.value;
+                console.log("You've chosen to remove the item with the ID of: " + removeID);
+
+                setTimeout(function () {
+                    $.ajax({
+                        url: "http://localhost:3000/api/waitlist",
+                        method: "GET"
+                    }).then(function (responseA) {
+
+                        var waitListArray = responseA;
+                        console.log("-------------------------------------------------------------------------")
+                        console.log("The existing wait list is: " + JSON.stringify(waitListArray));
+
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "http://localhost:3000/api/reservations",
+                                method: "GET"
+                            }).then(function (responseB) {
+                                console.log("-------------------------------------------------------------------------")
+                                console.log("The existing reservation list is: " + JSON.stringify(responseB));
+
+                                var chosen = "";
+                                for (i = 0; i < responseB.length; i++) {
+
+                                    if (responseB[i].id === removeID) {
+                                        console.log("-------------------------------------------------------------------------")
+                                        console.log("You've chosen to replace: " + JSON.stringify(responseB[i]));
+
+                                        var chosen = responseB[i].id
+                                        var filteredRespB = responseB.filter(foo => foo.id != responseB[i].id);
+                                        console.log("-------------------------------------------------------------------------")
+                                        console.log("The new array without them is: " + JSON.stringify(filteredRespB));
+
+                                        setTimeout(function () {
+                                            var offWaitList = waitListArray.shift();
+                                            filteredRespB.push(offWaitList);
+                                            console.log("-------------------------------------------------------------------------")
+                                            console.log("You've added the first person on the waiting list: " + JSON.stringify(filteredRespB));
+                                            console.log("-------------------------------------------------------------------------")
+                                            console.log("The new wait list is: " + JSON.stringify(waitListArray));
+
+                                            revisedWaitList = waitListArray;
+                                            revisedReservationList = filteredRespB;
+                                            checkLists();
+
+                                        }, 1000)
+                                    }
+
+
+                                }
+                                // console.log(responseB);
+                                // $.post("/api/table", newReservation).then(function (data) {
+                                //     console.log("make.html", data);
+                                //     alert("Adding character");
+                                // })
+                            })
+                        }, 2000)
+
+                    })
+
+                    // console.log(newReservation);
+                }, 3000)
+
+
+
+
+
+
+
+
+
+
+            })
+
+        }, 3000)
+
+        checkLists = function () {
+            console.log("----------------------------------------------")
+            console.log("----------------------------------------------")
+            console.log("----------------------------------------------")
+            console.log(revisedReservationList);
+            console.log("----------------------------------------------")
+            console.log(revisedWaitList);
+            console.log("----------------------------------------------")
+            console.log("----------------------------------------------")
+            console.log("----------------------------------------------")
+            
+        }
+
+
+        // Could maybe just append the indexes 5+ into waiting list card
+        $.ajax({
+            url: "http://localhost:3000/api/waitlist",
+            method: "GET"
+        }).then(function (response) {
+            console.log("Wait List Array: " + response);
+
+            if (response.length === 0) {
+                var noWait = $("<div>");
+                $(noWait).addClass("col-12");
+                $(noWait).text("No one has been put on the waiting list yet!");
+                $("#wait-row").append(noWait);
+            }
+
+            for (i = 0; i < response.length; i++) {
+                var waitDiv = $("<div>");
+                $(waitDiv).addClass("card col-12");
+                $(waitDiv).addClass("wait-cards");
+
+                var name = response[i].name;
+                var phone = response[i].phone;
+                var email = response[i].email;
+                var id = response[i].id;
+
+                $(waitDiv).append("Name: " + name);
+                $(waitDiv).append("<br>" + "Phone: " + phone);
+                $(waitDiv).append("<br>" + "Email: " + email);
+                $(waitDiv).append("<br>" + "ID: " + id);
+
+                $("#wait-row").append(waitDiv);
+
+                console.log(`${name} has signed up for WAITING LIST. Their phone is ${phone}, ${email} and secret code is ${id}`);
+            }
+        })
+    </script>
+
+</body>
+
+</html>

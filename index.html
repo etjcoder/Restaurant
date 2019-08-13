@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hot Restaurant</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Caveat+Brush|Rammetto+One|Viga|Caveat&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <!-- jQuery -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</head>
+
+<body>
+
+    <h1>Hot Restaurant</h1>
+    <h2>The hottest restaurant in town! Get your res now</h2>
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h4 class="card-title">Make a Reservation</h4>
+                    <div class="card-body">
+                        <button id="res-button" class="btn btn-light calorie-button" value="1750"><span>Reserve your
+                                seat</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <h4 class="card-title">View Tables</h4>
+                    <div class="card-body">
+
+                        <button id="table-button" class="btn btn-light calorie-button" value="2750"><span>View
+                                Tables</span></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script type ="text/javascript">
+    $("#res-button").on("click", function(){
+        document.location.href = "/make"
+    })
+
+    $("#table-button").on("click", function(){
+        document.location.href = "/table"
+    })
+    
+    </script>
+
+</body>
+
+</html>
