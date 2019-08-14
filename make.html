@@ -106,7 +106,7 @@
 
             setTimeout(function () {
                 $.ajax({
-                    url: "https://morning-beach-26734.herokuapp.com/reservations/api",
+                    url: "/api/reservations",
                     method: "GET"
                 }).then(function (response) {
                     for (i = 0; i < response.length; i++) {
@@ -120,7 +120,7 @@
                 })
                 setTimeout(function () {
                     $.ajax({
-                        url: "https://morning-beach-26734.herokuapp.com/waitlist/api",
+                        url: "api/waitlist/",
                         method: "GET"
                     }).then(function (response) {
                         for (i = 0; i < response.length; i++) {
@@ -131,7 +131,7 @@
                             }
 
                         }
-                        $.post("/api/table", newReservation).then(function (data) {
+                        $.post("/api/table/", newReservation).then(function (data) {
                             console.log("make.html", data);
                             alert("Adding character");
                         })

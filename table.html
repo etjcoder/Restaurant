@@ -96,7 +96,7 @@
         }))
 
         $.ajax({
-            url: "http://localhost:3000/api/reservations",
+            url: "/api/reservations",
             method: "GET"
         }).then(function (response) {
             console.log(response.length);
@@ -156,7 +156,7 @@
 
                 setTimeout(function () {
                     $.ajax({
-                        url: "http://localhost:3000/api/waitlist",
+                        url: "/api/waitlist",
                         method: "GET"
                     }).then(function (responseA) {
 
@@ -166,7 +166,7 @@
 
                         setTimeout(function () {
                             $.ajax({
-                                url: "http://localhost:3000/api/reservations",
+                                url: "/api/reservations",
                                 method: "GET"
                             }).then(function (responseB) {
                                 console.log("-------------------------------------------------------------------------")
@@ -243,7 +243,7 @@
 
         // Could maybe just append the indexes 5+ into waiting list card
         $.ajax({
-            url: "http://localhost:3000/api/waitlist",
+            url: "/api/waitlist",
             method: "GET"
         }).then(function (response) {
             console.log("Wait List Array: " + response);
